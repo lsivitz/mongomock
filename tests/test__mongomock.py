@@ -116,6 +116,11 @@ class CollectionTest(FakePymongoDatabaseTest):
         self.collection.insert(data)
         actual = self.collection.count()
         self.assertEqual(1, actual)
+    def test__drop(self):
+        data = {'a': 1}
+        self.collection.insert(data)
+        self.collection.drop()
+        self.assertEqual(0, self.collection.count())
 
 class DocumentTest(FakePymongoDatabaseTest):
     def setUp(self):

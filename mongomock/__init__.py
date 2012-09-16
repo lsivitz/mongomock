@@ -244,6 +244,7 @@ class Collection(object):
                 return False
 
         return True
+
     def save(self, to_save, manipulate=True, safe=False, **kwargs):
         if not isinstance(to_save, dict):
             raise TypeError("cannot save object of type %s" % type(to_save))
@@ -254,6 +255,7 @@ class Collection(object):
             self.update({"_id": to_save["_id"]}, to_save, True,
                         manipulate, safe, _check_keys=True, **kwargs)
             return to_save.get("_id", None)
+
     def remove(self, spec_or_id=None, search_filter=None):
         """Remove objects matching spec_or_id from the collection."""
         if search_filter is not None:
@@ -269,6 +271,10 @@ class Collection(object):
 
     def count(self):
         return len(self._documents)
+
+    def drop(self):
+        del self._documents
+        self._documents = {}
 
 
 class Cursor(object):
