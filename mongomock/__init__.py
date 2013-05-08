@@ -198,9 +198,10 @@ class Collection(object):
 
     def _iter_documents(self, filter=None):
         return (document for document in itervalues(self._documents) if self._filter_applies(filter, document))
-    def find_one(self, filter=None):
+        
+    def find_one(self, spec_or_id=None, **kwargs):
         try:
-            return next(self.find(filter))
+            return next(self.find(spec_or_id, **kwargs))
         except StopIteration:
             return None
 
